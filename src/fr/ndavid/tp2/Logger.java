@@ -1,6 +1,7 @@
 package fr.ndavid.tp2;
 
 import fr.ndavid.tp2.format.LogFormat;
+import fr.ndavid.tp2.format.LogRawFormat;
 import fr.ndavid.tp2.state.LoggerDebugState;
 import fr.ndavid.tp2.state.LoggerErrorState;
 import fr.ndavid.tp2.state.LoggerInfoState;
@@ -24,6 +25,13 @@ public class Logger {
     static Logger getInstance(LogType type, LogFormat format) {
         return Optional.ofNullable(loggers.get(type)).orElseGet(() -> {
             loggers.put(type, new Logger(type, format));
+            return loggers.get(type);
+        });
+    }
+
+    static Logger getInstance(LogType type) {
+        return Optional.ofNullable(loggers.get(type)).orElseGet(() -> {
+            loggers.put(type, new Logger(type, new LogRawFormat()));
             return loggers.get(type);
         });
     }
